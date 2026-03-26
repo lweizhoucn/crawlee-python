@@ -798,6 +798,7 @@ all = [
     { name = "browserforge" },
     { name = "cookiecutter" },
     { name = "curl-cffi" },
+    { name = "fastapi" },
     { name = "html5lib" },
     { name = "httpx", extra = ["brotli", "http2", "zstd"] },
     { name = "inquirer" },
@@ -815,6 +816,7 @@ all = [
     { name = "scikit-learn", version = "1.7.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "scikit-learn", version = "1.8.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "sqlalchemy", extra = ["asyncio"] },
+    { name = "sse-starlette" },
     { name = "typer" },
     { name = "wrapt" },
 ]
@@ -830,6 +832,10 @@ cli = [
 ]
 curl-impersonate = [
     { name = "curl-cffi" },
+]
+dashboard = [
+    { name = "fastapi" },
+    { name = "sse-starlette" },
 ]
 httpx = [
     { name = "apify-fingerprint-datapoints" },
@@ -915,9 +921,10 @@ requires-dist = [
     { name = "cachetools", specifier = ">=5.5.0" },
     { name = "colorama", specifier = ">=0.4.0" },
     { name = "cookiecutter", marker = "extra == 'cli'", specifier = ">=2.6.0" },
-    { name = "crawlee", extras = ["adaptive-crawler", "beautifulsoup", "cli", "curl-impersonate", "httpx", "parsel", "playwright", "otel", "sql-sqlite", "sql-postgres", "redis"], marker = "extra == 'all'" },
+    { name = "crawlee", extras = ["adaptive-crawler", "beautifulsoup", "cli", "curl-impersonate", "dashboard", "httpx", "parsel", "playwright", "otel", "sql-sqlite", "sql-postgres", "redis"], marker = "extra == 'all'" },
     { name = "cryptography", marker = "extra == 'sql-mysql'", specifier = ">=46.0.5" },
     { name = "curl-cffi", marker = "extra == 'curl-impersonate'", specifier = ">=0.9.0" },
+    { name = "fastapi", marker = "extra == 'dashboard'", specifier = ">=0.110.0" },
     { name = "html5lib", marker = "extra == 'beautifulsoup'", specifier = ">=1.0" },
     { name = "httpx", extras = ["brotli", "http2", "zstd"], marker = "extra == 'httpx'", specifier = ">=0.27.0" },
     { name = "impit", specifier = ">=0.8.0" },
@@ -944,13 +951,14 @@ requires-dist = [
     { name = "sqlalchemy", extras = ["asyncio"], marker = "extra == 'sql-mysql'", specifier = ">=2.0.0,<3.0.0" },
     { name = "sqlalchemy", extras = ["asyncio"], marker = "extra == 'sql-postgres'", specifier = ">=2.0.0,<3.0.0" },
     { name = "sqlalchemy", extras = ["asyncio"], marker = "extra == 'sql-sqlite'", specifier = ">=2.0.0,<3.0.0" },
+    { name = "sse-starlette", marker = "extra == 'dashboard'", specifier = ">=2.0.0" },
     { name = "tldextract", specifier = ">=5.1.0" },
     { name = "typer", marker = "extra == 'cli'", specifier = ">=0.12.0" },
     { name = "typing-extensions", specifier = ">=4.1.0" },
     { name = "wrapt", marker = "extra == 'otel'", specifier = ">=1.17.0" },
     { name = "yarl", specifier = ">=1.18.0" },
 ]
-provides-extras = ["all", "adaptive-crawler", "beautifulsoup", "cli", "curl-impersonate", "httpx", "parsel", "playwright", "otel", "sql-postgres", "sql-sqlite", "sql-mysql", "redis"]
+provides-extras = ["all", "adaptive-crawler", "dashboard", "beautifulsoup", "cli", "curl-impersonate", "httpx", "parsel", "playwright", "otel", "sql-postgres", "sql-sqlite", "sql-mysql", "redis"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -1237,6 +1245,22 @@ lua = [
 ]
 probabilistic = [
     { name = "pyprobables" },
+]
+
+[[package]]
+name = "fastapi"
+version = "0.135.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "annotated-doc" },
+    { name = "pydantic" },
+    { name = "starlette" },
+    { name = "typing-extensions" },
+    { name = "typing-inspection" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c4/73/5903c4b13beae98618d64eb9870c3fac4f605523dd0312ca5c80dadbd5b9/fastapi-0.135.2.tar.gz", hash = "sha256:88a832095359755527b7f63bb4c6bc9edb8329a026189eed83d6c1afcf419d56", size = 395833, upload-time = "2026-03-23T14:12:41.697Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8f/ea/18f6d0457f9efb2fc6fa594857f92810cadb03024975726db6546b3d6fcf/fastapi-0.135.2-py3-none-any.whl", hash = "sha256:0af0447d541867e8db2a6a25c23a8c4bd80e2394ac5529bd87501bbb9e240ca5", size = 117407, upload-time = "2026-03-23T14:12:43.284Z" },
 ]
 
 [[package]]
@@ -3786,6 +3810,32 @@ wheels = [
 [package.optional-dependencies]
 asyncio = [
     { name = "greenlet" },
+]
+
+[[package]]
+name = "sse-starlette"
+version = "3.3.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "anyio" },
+    { name = "starlette" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/14/2f/9223c24f568bb7a0c03d751e609844dce0968f13b39a3f73fbb3a96cd27a/sse_starlette-3.3.3.tar.gz", hash = "sha256:72a95d7575fd5129bd0ae15275ac6432bb35ac542fdebb82889c24bb9f3f4049", size = 32420, upload-time = "2026-03-17T20:05:55.529Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/78/e2/b8cff57a67dddf9a464d7e943218e031617fb3ddc133aeeb0602ff5f6c85/sse_starlette-3.3.3-py3-none-any.whl", hash = "sha256:c5abb5082a1cc1c6294d89c5290c46b5f67808cfdb612b7ec27e8ba061c22e8d", size = 14329, upload-time = "2026-03-17T20:05:54.35Z" },
+]
+
+[[package]]
+name = "starlette"
+version = "1.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "anyio" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/81/69/17425771797c36cded50b7fe44e850315d039f28b15901ab44839e70b593/starlette-1.0.0.tar.gz", hash = "sha256:6a4beaf1f81bb472fd19ea9b918b50dc3a77a6f2e190a12954b25e6ed5eea149", size = 2655289, upload-time = "2026-03-22T18:29:46.779Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0b/c9/584bc9651441b4ba60cc4d557d8a547b5aff901af35bda3a4ee30c819b82/starlette-1.0.0-py3-none-any.whl", hash = "sha256:d3ec55e0bb321692d275455ddfd3df75fff145d009685eb40dc91fc66b03d38b", size = 72651, upload-time = "2026-03-22T18:29:45.111Z" },
 ]
 
 [[package]]
