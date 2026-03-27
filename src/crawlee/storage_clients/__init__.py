@@ -16,9 +16,13 @@ with _try_import(__name__, 'SqlStorageClient'):
 with _try_import(__name__, 'RedisStorageClient'):
     from ._redis import RedisStorageClient
 
+with _try_import(__name__, 'MongoDBStorageClient'):
+    from ._mongodb import MongoDBStorageClient
+
 __all__ = [
     'FileSystemStorageClient',
     'MemoryStorageClient',
+    'MongoDBStorageClient',
     'RedisStorageClient',
     'SqlStorageClient',
     'StorageClient',
