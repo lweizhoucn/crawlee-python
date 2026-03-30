@@ -19,8 +19,12 @@ with _try_import(__name__, 'RedisStorageClient'):
 with _try_import(__name__, 'MongoDBStorageClient'):
     from ._mongodb import MongoDBStorageClient
 
+with _try_import(__name__, 'HttpStorageClient'):
+    from ._http import HttpStorageClient
+
 __all__ = [
     'FileSystemStorageClient',
+    'HttpStorageClient',
     'MemoryStorageClient',
     'MongoDBStorageClient',
     'RedisStorageClient',
